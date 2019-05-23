@@ -4,7 +4,7 @@
 * chiamare la funzione botMessage()
 * definire queste variabili
 
-const char BotToken[] = "824668381:AAEa7TmxzxDLouxR42FHUt29XUrhW5md6c4"; // Token Bot
+const char BotToken[] = ""; // Token Bot
 
 String response;
 String chat_id;
@@ -20,6 +20,38 @@ UniversalTelegramBot bot(BotToken,clientBot);
 *
 */
 /***********************************************************************************************/
+void statusMessage(String chat_id){
+       Serial.println("send status message");
+       response="Temperature: ";
+       response.concat(temperature);
+       response.concat("\n");
+       response.concat("Wifi: ");
+       response.concat(wifi);
+       response.concat("\n");
+       response.concat("Distance: ");
+       response.concat(distance);
+       response.concat("\n");
+       response.concat("Flame: ");
+       response.concat(flame);
+       response.concat("\n");
+       response.concat("Sound: ");
+       response.concat(sound);
+       response.concat("\n");
+       response.concat("light: ");
+       response.concat(light);
+       response.concat("\n");
+       bot.sendMessage(chat_id,response); 
+  }
+void sensorMessage(String chat_id, String sensor, long value){
+    Serial.print("----> send value of ");
+    Serial.println(sensor);  
+    response=sensor;
+    response.concat(": ");
+    response.concat(value);
+    bot.sendMessage(chat_id,response); 
+    
+  }
+
 void handleNewMessages(int numNewMessages) {
   Serial.println("handleNewMessages");
   Serial.println(String(numNewMessages));
@@ -85,34 +117,3 @@ void botMessage (){
 /******************************************************************************
  * 
  */
-void statusMessage(String chat_id){
-       Serial.println("send status message");
-       response="Temperature: ";
-       response.concat(temperature);
-       response.concat("\n");
-       response.concat("Wifi: ");
-       response.concat(wifi);
-       response.concat("\n");
-       response.concat("Distance: ");
-       response.concat(distance);
-       response.concat("\n");
-       response.concat("Flame: ");
-       response.concat(flame);
-       response.concat("\n");
-       response.concat("Sound: ");
-       response.concat(sound);
-       response.concat("\n");
-       response.concat("light: ");
-       response.concat(light);
-       response.concat("\n");
-       bot.sendMessage(chat_id,response); 
-  }
-void sensorMessage(String chat_id, String sensor, long value){
-    Serial.print("----> send value of ");
-    Serial.println(sensor);  
-    response=sensor;
-    response.concat(": ");
-    response.concat(value);
-    bot.sendMessage(chat_id,response); 
-    
-  }
